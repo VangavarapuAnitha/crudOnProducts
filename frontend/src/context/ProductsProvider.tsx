@@ -6,7 +6,7 @@ import React, {
   type ReactNode,
 } from "react";
 import type { ProductType } from "../types/products.types";
-import axios from "../shared/utils/axiosInstance";
+// import axios from "../shared/utils/axiosInstance";
 
 interface OpenProductFormProps {
   show: boolean;
@@ -52,12 +52,28 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
   const [loadingError, setLoadingError] = useState<string | null>(null);
 
   //Fetch all products data
+  // const fetchProducts = async () => {
+  //   setLoading(true);
+  //   setLoadingError(null);
+  //   try {
+  //     const res = await axios.get("/");
+  //     const data: ProductType[] = res.data;
+  //     setFetchedProducts(data);
+  //     setFinalProducts(data);
+  //   } catch (error) {
+  //     console.log("Failed to fetch products:", error);
+  //     setLoadingError("Failed to load products");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const fetchProducts = async () => {
     setLoading(true);
     setLoadingError(null);
     try {
-      const res = await axios.get("/");
-      const data: ProductType[] = res.data;
+      const res = await import("../data/products.json");
+      const data: ProductType[] = res.products;
       setFetchedProducts(data);
       setFinalProducts(data);
     } catch (error) {

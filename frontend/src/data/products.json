@@ -1,0 +1,76 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Samsung Galaxy S24 Ultra 5G",
+      "price": 75000,
+      "category": "Electronics",
+      "description": "Samsung Galaxy S24 Ultra 5G AI Smartphone with Galaxy AI (Titanium Black, 12GB, 256GB Storage), Snapdragon 8 Gen 3, 200 MP Camera with ProVisual Engine and 5000mAh Battery",
+      "imageUrl": "https://m.media-amazon.com/images/I/71Nwtop9jtL._SX679_.jpg"
+    },
+    {
+      "id": "2",
+      "name": "GoSriKi Women's Rayon Blend Anarkali Solid Kurta with Pant & Dupatta",
+      "price": 1999,
+      "category": "Clothes",
+      "description": "This set includes: 1 Kurta and 1 Pant with Dupatta || Work :- Solid & Printed Dupatta || Neck Style:- U-Neck",
+      "imageUrl": "https://m.media-amazon.com/images/I/71JrdJxQyWL._AC_UY327_FMwebp_QL65_.jpg"
+    },
+    {
+      "id": "3",
+      "name": "Maybelline New York Lipstick",
+      "price": 800,
+      "category": "Cosmetics",
+      "description": "Maybelline New York Lipstick, Matte Finish, Non-Sticky and Non-Drying, Sensational Liquid Matte, 21 Nude Nuance, 7ml",
+      "imageUrl": "https://m.media-amazon.com/images/I/41sXjSVQrbL._SL1500_.jpg"
+    },
+    {
+      "id": "4",
+      "name": "Automatic Top Load Washing Machine",
+      "price": 17500,
+      "category": "Home Appliances",
+      "description": "LG 7 Kg 5 Star Smart Inverter Technology Fully Automatic Top Load Washing Machine (T70VBMB1Z, Auto Prewash, Turbodrum, Stainless Steel drum, LED Display, Smart Diagnosis Middle Black)",
+      "imageUrl": "https://m.media-amazon.com/images/I/71BZCfuDANL._SY500_.jpg"
+    },
+    {
+      "id": "5",
+      "name": "OnePlus Buds",
+      "price": 5879,
+      "category": "Electronics",
+      "description": "OnePlus Buds 4 TWS Earbuds with Upto 55dB Real-time ANC,Adaptive Mode,Dual Drivers with Dual DACs,3D Audio,Upto 45hrs Music Playback,Dual-Device connectivity,47ms Low Latency[Storm Gray]",
+      "imageUrl": "https://m.media-amazon.com/images/I/61VKXOPKdaL._SX679_.jpg"
+    },
+    {
+      "id": "6",
+      "name": " A-Line Trousers Woman Pant with Dupatta ",
+      "price": 700,
+      "category": "Clothes",
+      "description": "This set includes: 1 Kurta | 1 Pant|| Work :- Printed || Colour Declaration : There might be slight variation in the actual color of the product due to different screen resolutions.",
+      "imageUrl": "https://m.media-amazon.com/images/I/61HZuyv-MWL._SY741_.jpg"
+    },
+    {
+      "id": "7",
+      "name": "Bata Women's Wedge Heel Sandal",
+      "price": 644,
+      "category": "Footwear",
+      "description": "Allow your pair of shoes to air and de-odorize at regular basis; use shoe bags to prevent any stains or mildew; dust any dry dirt from the surface using a clean cloth; do not use polish or shiner",
+      "imageUrl": "https://m.media-amazon.com/images/I/51wYP0hyo7L._SY695_.jpg"
+    },
+    {
+      "id": "8",
+      "name": "Prestige Stainless Steel 1.5 Litre Kettle 1500-Watts, Red",
+      "price": 549,
+      "category": "Home Appliances",
+      "description": "Max 3 differentiators great features - i)automatic cutoff ii) 360 degree swivel base iii)single touch lid locking. Lockable Lid:Yes",
+      "imageUrl": "https://m.media-amazon.com/images/I/51zGuMpVccL._SX679_.jpg"
+    },
+    {
+      "id": "9",
+      "name": "Dumbbells Set",
+      "price": 748,
+      "category": "Fitness",
+      "description": "Protoner PVC 3 in 1 convertible DM 4-40 Kg Dumbbells Set and Fitness Kit for Men and Women Whole Body Workout (20 kg (2 kg x 4, 3 kg x 4), 3 in 1 convertible) Black",
+      "imageUrl": "https://m.media-amazon.com/images/I/81yi8OiYIRL._SL1500_.jpg"
+    }
+  ]
+}
