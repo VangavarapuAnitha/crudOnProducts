@@ -25,7 +25,7 @@ export interface ProductsContextProps {
   loading: boolean;
   loadingError: string | null;
   setViewProduct: (val: ProductType | null) => void;
-  setOpernProductForm: (val: OpenProductFormProps) => void;
+  setOpenProductForm: (val: OpenProductFormProps) => void;
 }
 
 export const ProductContext = createContext<ProductsContextProps | null>(null);
@@ -42,12 +42,10 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
   const [fetchedProducts, setFetchedProducts] = useState<ProductType[]>([]);
   const [finalProducts, setFinalProducts] = useState<ProductType[]>([]);
   const [viewProduct, setViewProduct] = useState<ProductType | null>(null);
-  const [openProductForm, setOpernProductForm] = useState<OpenProductFormProps>(
-    {
-      show: false,
-      initialData: null,
-    }
-  );
+  const [openProductForm, setOpenProductForm] = useState<OpenProductFormProps>({
+    show: false,
+    initialData: null,
+  });
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingError, setLoadingError] = useState<string | null>(null);
 
@@ -98,7 +96,7 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     loading,
     loadingError,
     setViewProduct,
-    setOpernProductForm,
+    setOpenProductForm,
   };
 
   return (

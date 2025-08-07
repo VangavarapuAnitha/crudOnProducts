@@ -1,6 +1,6 @@
 import { useProductContext } from "../../context/ProductsProvider";
 
 export const useProductGrid = () => {
-  const { setViewProduct, setOpernProductForm } = useProductContext();
-  return { setViewProduct, setOpernProductForm };
+  const { setViewProduct, setOpenProductForm } = useProductContext();
+  return { setViewProduct, setOpenProductForm };
 };

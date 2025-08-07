@@ -7,7 +7,7 @@ interface ProductGridProps {
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
-  const { setViewProduct, setOpernProductForm } = useProductGrid();
+  const { setViewProduct, setOpenProductForm } = useProductGrid();
 
   return (
     <div
@@ -36,12 +36,13 @@ const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
             <Edit
               size={18}
               className="cursor-pointer"
-              onClick={() =>
-                setOpernProductForm({
+              onClick={(event) => {
+                event.stopPropagation();
+                setOpenProductForm({
                   show: true,
                   initialData: product,
-                })
-              }
+                });
+              }}
             />
             <Trash size={18} className="cursor-pointer" />
           </div>

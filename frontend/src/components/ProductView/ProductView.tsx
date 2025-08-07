@@ -1,15 +1,13 @@
 import { IndianRupee } from "lucide-react";
 import { useProductView } from "./useProductView";
+import { Modal } from "../../shared/components";
 
 const ProductView = () => {
-  const { viewProduct, ref } = useProductView();
+  const { viewProduct, setViewProduct } = useProductView();
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-[#000000aa] z-50 px-4">
-      <div
-        className="w-full max-w-md sm:max-w-lg md:max-w-2xl bg-white rounded-lg border shadow-md"
-        ref={ref}
-      >
+    <Modal onClose={() => setViewProduct(null)}>
+      <div>
         <img
           src={viewProduct?.imageUrl}
           alt={viewProduct?.name}
@@ -40,7 +38,7 @@ const ProductView = () => {
           </p>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 };
 
