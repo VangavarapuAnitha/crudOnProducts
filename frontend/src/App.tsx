@@ -1,10 +1,12 @@
+import { Products } from "./pages/Products";
+import ProductProvider from "./context/ProductsProvider";
+
 function App() {
   return (
     <div>
-      <img
-        src="https://m.media-amazon.com/images/I/61v6dAyqJUL._AC_SL1500_.jpg"
-        alt="image"
-      />
+      <ProductProvider>
+        <Products />
+      </ProductProvider>
     </div>
   );
 }
