@@ -4,3 +4,4 @@ export { default as Modal } from "./Modal";
 export { default as TextAreaInput } from "./TextAreaInput";
 export { default as RCSlider } from "./RCSlider";
 export { default as NumberInput } from "./NumberInput";
+export { default as DropDown } from "./DropDown";
