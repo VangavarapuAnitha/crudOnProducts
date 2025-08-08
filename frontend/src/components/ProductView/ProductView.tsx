@@ -6,7 +6,13 @@ const ProductView = () => {
   const { viewProduct, setViewProduct } = useProductView();
 
   return (
-    <Modal onClose={() => setViewProduct(null)}>
+    <Modal
+      onClose={() => setViewProduct(null)}
+      classes={{
+        modalHeader: "border-none",
+        modalBody: "pb-2",
+      }}
+    >
       <div>
         <img
           src={viewProduct?.imageUrl}

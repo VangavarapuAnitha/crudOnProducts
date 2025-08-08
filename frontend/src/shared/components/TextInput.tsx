@@ -12,7 +12,7 @@ interface TextInputProps {
   name: string;
   label?: string;
   placeholder?: string;
-  onChange: () => void;
+  onChange: (val: string) => void;
   error?: string;
   value: string;
   classes?: ClassNames;
@@ -42,7 +42,7 @@ const TextInput: React.FC<TextInputProps> = ({
         name={name}
         value={value}
         placeholder={placeholder}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
         className={cn(
           "border rounded-sm p-2 border-gray-200 text-sm outline-none",
           classes?.input

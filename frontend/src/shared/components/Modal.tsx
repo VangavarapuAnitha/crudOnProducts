@@ -1,11 +1,19 @@
 import React, { useRef, useEffect, type ReactNode } from "react";
 import { X } from "lucide-react";
+import { cn } from "../utils/cn";
+
+interface ClassNames {
+  modalHeader?: string;
+  modalBody?: string;
+  modalFooter?: string;
+}
 
 interface ModalProps {
   onClose: () => void;
   title?: string;
   children: ReactNode;
   footerElement?: ReactNode;
+  classes?: ClassNames;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -13,6 +21,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   children,
   footerElement,
+  classes,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -44,15 +53,27 @@ const Modal: React.FC<ModalProps> = ({
         ref={ref}
       >
         {/*Modal Header*/}
-        <div className="flex justify-between border-b px-4 pt-3 pb-2 border-gray-200 mb-2">
+        <div
+          className={cn(
+            "flex justify-between border-b px-4 pt-3 pb-2 border-gray-200 mb-2",
+            classes?.modalHeader
+          )}
+        >
           <p>{title}</p>
           <X onClick={onClose} className="cursor-pointer" size={20} />
         </div>
         {/* Modal body*/}
-        <div className="overflow-y-auto px-4">{children}</div>
+        <div className={cn("overflow-y-auto px-4", classes?.modalBody)}>
+          {children}
+        </div>
         {/*Modal Footer*/}
         {footerElement && (
-          <div className="text-end border-t pt-3 px-4 pb-2.5 border-gray-200">
+          <div
+            className={cn(
+              "text-end border-t pt-3 px-4 pb-2.5 border-gray-200",
+              classes?.modalFooter
+            )}
+          >
             {footerElement}
           </div>
         )}

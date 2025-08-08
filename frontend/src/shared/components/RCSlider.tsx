@@ -16,10 +16,10 @@ const RCSlider: React.FC<RCSliderProps> = ({ min, max, onAfterChange }) => {
       defaultValue={[min, max]}
       onChangeComplete={(values) => onAfterChange(values as number[])}
       styles={{
-        track: { backgroundColor: "#3b82f6" }, // blue-500
+        track: { backgroundColor: "oklch(28.2% 0.091 267.935)" }, // blue-500
         handle: {
-          borderColor: "#3b82f6",
-          backgroundColor: "#3b82f6",
+          borderColor: "oklch(28.2% 0.091 267.935)",
+          backgroundColor: "oklch(28.2% 0.091 267.935)",
         },
         rail: { backgroundColor: "#e5e7eb" }, // gray-200
       }}

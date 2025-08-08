@@ -1,13 +1,15 @@
 import { Edit, IndianRupee, Trash } from "lucide-react";
 import type { ProductType } from "../../types/products.types";
 import { useProductGrid } from "./useProductGrid";
+import { checkValidImageURL } from "../../shared/utils/checkValidImageURL";
 
 interface ProductGridProps {
   product: ProductType;
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
-  const { setViewProduct, setOpenProductForm } = useProductGrid();
+  const { setViewProduct, setOpenProductForm, setDeleteModal } =
+    useProductGrid();
 
   return (
     <div
@@ -17,24 +19,29 @@ const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
     >
       {/*Image box */}
       <div className="w-50 h-50  p-4 rounded-lg overflow-hidden flex justify-center items-center mt-1">
-        <img
-          src={product.imageUrl}
-          alt={product.name}
-          className="h-full object-contain"
-        />
+        {checkValidImageURL(product.imageUrl) ? (
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            className="h-full object-contain"
+          />
+        ) : (
+          <div>{product.name}</div>
+        )}
       </div>
       {/*Product content */}
       <div className="flex flex-col gap-2">
         {/* Product name max 1 lines */}
         <p className="text-sm leading-snug line-clamp-1">{product.name}</p>
         <div className="flex justify-between items-center">
-          <p className="flex items-center gap-1 ">
-            <IndianRupee size={18} />
-            <span className="text-lg">{product.price}</span>
+          <p className="flex items-center gap-1 text-blue-950 font-medium">
+            <IndianRupee size={16} color="oklch(28.2% 0.091 267.935)" />
+            <span className="text-md">{product.price}</span>
           </p>
           <div className="flex gap-2 items-center">
             <Edit
               size={18}
+              color="oklch(28.2% 0.091 267.935)"
               className="cursor-pointer"
               onClick={(event) => {
                 event.stopPropagation();
@@ -44,7 +51,18 @@ const ProductGrid: React.FC<ProductGridProps> = ({ product }) => {
                 });
               }}
             />
-            <Trash size={18} className="cursor-pointer" />
+            <Trash
+              size={18}
+              color="red"
+              className="cursor-pointer"
+              onClick={(event) => {
+                event.stopPropagation();
+                setDeleteModal({
+                  id: product._id,
+                  name: product.name,
+                });
+              }}
+            />
           </div>
         </div>
       </div>

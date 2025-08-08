@@ -1,5 +1,6 @@
-import { Asterisk } from "lucide-react";
+import React from "react";
 import { cn } from "../utils/cn";
+import { Asterisk } from "lucide-react";
 
 interface ClassNames {
   input?: string;
@@ -7,7 +8,7 @@ interface ClassNames {
   error?: string;
 }
 
-interface TextAreaInputProps {
+interface NumberInputProps {
   name: string;
   label?: string;
   placeholder?: string;
@@ -18,7 +19,7 @@ interface TextAreaInputProps {
   required?: boolean;
 }
 
-const TextAreaInput: React.FC<TextAreaInputProps> = ({
+const NumberInput: React.FC<NumberInputProps> = ({
   name,
   label,
   value,
@@ -35,8 +36,9 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
           {label}
           {required && <Asterisk color="red" size={10} />}
         </label>
-      )}{" "}
-      <textarea
+      )}
+      <input
+        type="text"
         name={name}
         value={value}
         placeholder={placeholder}
@@ -45,6 +47,11 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
           "border rounded-sm p-2 border-gray-200 text-sm outline-none",
           classes?.input
         )}
+        onKeyDown={(e) => {
+          if (!/[0-9]/.test(e.key) && e.key !== "Backspace") {
+            e.preventDefault();
+          }
+        }}
       />
       {error && (
         <p className={cn("text-red-500 text-sm", classes?.error)}>{error}</p>
@@ -53,4 +60,4 @@ const TextAreaInput: React.FC<TextAreaInputProps> = ({
   );
 };
 
-export default TextAreaInput;
+export default NumberInput;

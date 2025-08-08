@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useProductContext } from "../../context/ProductsProvider";
 import { useEffect } from "react";
+import axiosInstance from "../../shared/utils/axiosInstance";
+import { isEqual } from "lodash";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 interface FormProps {
   name: string;
@@ -11,7 +15,8 @@ interface FormProps {
 }
 
 export const useProductForm = () => {
-  const { setOpenProductForm, openProductForm } = useProductContext();
+  const { setOpenProductForm, fetchProducts, openProductForm } =
+    useProductContext();
   const initialData = openProductForm.initialData;
   const {
     handleSubmit,
@@ -49,8 +54,55 @@ export const useProductForm = () => {
     }
   }, [initialData]);
 
-  const onSubmit = (data: FormProps) => {
-    console.log(data);
+  const onSubmit = async (data: FormProps) => {
+    try {
+      if (initialData) {
+        const oldData = Object.fromEntries(
+          Object.entries(initialData).filter(([key]) => key !== "_id")
+        );
+        console.log("oldData", oldData);
+        console.log("newData", data);
+        //Check if there is no changes
+        if (isEqual(oldData, data)) {
+          toast.warning("There is no changes to update");
+          return;
+        } else {
+          //Get modified fields
+          const modifiedFields = Object.fromEntries(
+            Object.entries(data).filter(
+              ([key, value]) => !isEqual(value, oldData[key])
+            )
+          );
+          const payload = {
+            id: initialData._id,
+            ...modifiedFields,
+          };
+          console.log(payload);
+          //Submit updated data
+          const res = await axiosInstance.put("/", payload);
+          toast.success(res.data.message || "Updated succefully!");
+        }
+      } else {
+        //Submit new product
+        await axiosInstance.post("/", data);
+        toast.success("New product added!");
+      }
+      setOpenProductForm({
+        show: false,
+        initialData: null,
+      });
+      await fetchProducts();
+    } catch (error: any) {
+      console.log("Error in update/submit data:", error);
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message ||
+          "Something went wrong.Try after some time!";
+        toast.error(errorMessage);
+      } else {
+        toast.error("Something went wrong.Try after some time!");
+      }
+    }
   };
 
   return {

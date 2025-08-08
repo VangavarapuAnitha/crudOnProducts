@@ -5,7 +5,7 @@ import type { ProductType } from "../../types/products.types";
 import { useProducts } from "./useProducts";
 import { Button, RCSlider, TextInput } from "../../shared/components";
 import { IndianRupee, Search } from "lucide-react";
-
+import { DeleteProduct } from "../../components/DeleteProduct";
 const Products = () => {
   const {
     finalProducts,
@@ -13,6 +13,8 @@ const Products = () => {
     viewProduct,
     search,
     price,
+    deleteModal,
+    setDeleteModal,
     setPrice,
     setSearch,
     setOpenProductForm,
@@ -26,7 +28,7 @@ const Products = () => {
             <TextInput
               name="search"
               value={search}
-              onChange={() => setSearch}
+              onChange={(val: string) => setSearch(val)}
               placeholder="Search by product name"
               classes={{
                 input: "border-none p-0",
@@ -47,9 +49,9 @@ const Products = () => {
         />
       </div>
       <div className="flex items-center sm:flex-row border justify-self-center max-w-xl w-full gap-4 px-4 py-1 rounded-lg border-gray-200 bg-white mt-4">
-        <div className="flex flex-col items-center text-sm">
+        <div className="flex flex-col items-center text-sm text-blue-950">
           <div> Price Range</div>
-          <div className="flex items-center">
+          <div className="flex items-center font-medium">
             <IndianRupee size={14} />
             {price[0]}
             -<IndianRupee size={14} />
@@ -63,13 +65,28 @@ const Products = () => {
           onAfterChange={(values) => setPrice([values[0], values[1]])}
         />
       </div>
+      {finalProducts.length === 0 && (
+        <p className="text-center mt-4 text-red-500">No products found</p>
+      )}
       <div className="flex flex-wrap justify-center gap-6 p-4">
-        {finalProducts.map((product: ProductType) => (
-          <ProductGrid key={product.id} product={product} />
+        {finalProducts.map((product: ProductType, index: number) => (
+          <ProductGrid key={index} product={product} />
         ))}
       </div>
       {viewProduct && <ProductView />}
       {openProductForm.show && <ProductForm />}
+      {deleteModal.id && (
+        <DeleteProduct
+          onClose={() =>
+            setDeleteModal({
+              id: null,
+              name: null,
+            })
+          }
+          id={deleteModal.id}
+          name={deleteModal.name!}
+        />
+      )}
     </div>
   );
 };

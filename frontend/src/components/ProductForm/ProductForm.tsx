@@ -3,6 +3,7 @@ import {
   TextInput,
   TextAreaInput,
   Button,
+  NumberInput,
 } from "../../shared/components";
 import { useProductForm } from "./useProductForm";
 import { Controller } from "react-hook-form";
@@ -57,13 +58,12 @@ const ProductForm = () => {
           rules={{
             required: "Provide product price",
             validate: {
-              isNumber: (val) =>
-                /^[0-9]+$/.test(String(val)) || "Price must be number",
-              isValid: (val) => val !== 0 || "Price not be 0",
+              isValid: (val) =>
+                Number(val) > 0 || "Price must be greater than 0",
             },
           }}
           render={({ field }) => (
-            <TextInput
+            <NumberInput
               name={field.name}
               onChange={field.onChange}
               label="Price"

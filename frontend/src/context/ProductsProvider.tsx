@@ -6,7 +6,12 @@ import React, {
   type ReactNode,
 } from "react";
 import type { ProductType } from "../types/products.types";
-// import axios from "../shared/utils/axiosInstance";
+import axiosInstance from "../shared/utils/axiosInstance";
+
+interface DeleteModalProps {
+  id: string | null;
+  name: string | null;
+}
 
 interface OpenProductFormProps {
   show: boolean;
@@ -24,6 +29,10 @@ export interface ProductsContextProps {
   viewProduct: ProductType | null;
   loading: boolean;
   loadingError: string | null;
+  deleteModal: DeleteModalProps;
+  setDeleteModal: (val: DeleteModalProps) => void;
+  fetchProducts: () => void;
+  setFinalProducts: (val: ProductType[]) => void;
   setViewProduct: (val: ProductType | null) => void;
   setOpenProductForm: (val: OpenProductFormProps) => void;
 }
@@ -48,30 +57,19 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingError, setLoadingError] = useState<string | null>(null);
+  const [deleteModal, setDeleteModal] = useState<DeleteModalProps>({
+    id: null,
+    name: null,
+  });
 
   //Fetch all products data
-  // const fetchProducts = async () => {
-  //   setLoading(true);
-  //   setLoadingError(null);
-  //   try {
-  //     const res = await axios.get("/");
-  //     const data: ProductType[] = res.data;
-  //     setFetchedProducts(data);
-  //     setFinalProducts(data);
-  //   } catch (error) {
-  //     console.log("Failed to fetch products:", error);
-  //     setLoadingError("Failed to load products");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const fetchProducts = async () => {
     setLoading(true);
     setLoadingError(null);
     try {
-      const res = await import("../data/products.json");
-      const data: ProductType[] = res.products;
+      const res = await axiosInstance.get("/");
+      console.log(res);
+      const data: ProductType[] = res.data.products;
       setFetchedProducts(data);
       setFinalProducts(data);
     } catch (error) {
@@ -95,6 +93,10 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     viewProduct,
     loading,
     loadingError,
+    deleteModal,
+    setDeleteModal,
+    fetchProducts,
+    setFinalProducts,
     setViewProduct,
     setOpenProductForm,
   };

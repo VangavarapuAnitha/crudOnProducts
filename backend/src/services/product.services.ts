@@ -123,6 +123,7 @@ export const updateProductService = async ({
     if (category !== undefined) updateFields.category = category;
 
     await Product.findByIdAndUpdate(id, { $set: updateFields });
+
     return {
       success: true,
       message: "Updated successfully",
