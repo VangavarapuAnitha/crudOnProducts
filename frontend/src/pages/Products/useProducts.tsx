@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useProductContext } from "../../context/ProductsProvider";
 
 export const useProducts = () => {
@@ -7,13 +7,16 @@ export const useProducts = () => {
     openProductForm,
     viewProduct,
     deleteModal,
+    search,
+    price,
+    sortOrder,
+    setSortOrder,
+    setPrice,
+    setSearch,
     setDeleteModal,
     fetchProducts,
     setOpenProductForm,
   } = useProductContext();
-  const [search, setSearch] = useState<string>("");
-  const [price, setPrice] = useState<[number, number]>([500, 50000]);
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
 
   useEffect(() => {
     fetchProducts({

@@ -38,6 +38,12 @@ export interface ProductsContextProps {
   loadingError: string | null;
   deleteModal: DeleteModalProps;
   categoryList: CategoryType[];
+  search: string;
+  sortOrder: "asc" | "desc" | null;
+  price: [number, number];
+  setPrice: (val: [number, number]) => void;
+  setSortOrder: (val: "asc" | "desc" | null) => void;
+  setSearch: (val: string) => void;
   setDeleteModal: (val: DeleteModalProps) => void;
   fetchProducts: (val: FetchProductsProps) => void;
   setFinalProducts: (val: ProductType[]) => void;
@@ -64,7 +70,9 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     initialData: null,
   });
   const [categoryList, setCategoryList] = useState<CategoryType[]>([]);
-
+  const [search, setSearch] = useState<string>("");
+  const [price, setPrice] = useState<[number, number]>([500, 50000]);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc" | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingError, setLoadingError] = useState<string | null>(null);
   const [deleteModal, setDeleteModal] = useState<DeleteModalProps>({
@@ -133,6 +141,12 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     loadingError,
     deleteModal,
     categoryList,
+    search,
+    price,
+    sortOrder,
+    setSortOrder,
+    setPrice,
+    setSearch,
     setDeleteModal,
     fetchProducts,
     setFinalProducts,

@@ -15,8 +15,15 @@ export interface FormProps {
 }
 
 export const useProductForm = () => {
-  const { setOpenProductForm, fetchProducts, openProductForm, categoryList } =
-    useProductContext();
+  const {
+    setOpenProductForm,
+    fetchProducts,
+    setPrice,
+    setSortOrder,
+    setSearch,
+    openProductForm,
+    categoryList,
+  } = useProductContext();
 
   const initialData = openProductForm.initialData;
   const {
@@ -98,7 +105,10 @@ export const useProductForm = () => {
         show: false,
         initialData: null,
       });
-      await fetchProducts();
+      setSearch("");
+      setSortOrder(null);
+      setPrice([500, 50000]);
+      await fetchProducts({});
     } catch (error: any) {
       console.log("Error in update/submit data:", error);
       if (axios.isAxiosError(error)) {
