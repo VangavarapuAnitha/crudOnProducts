@@ -2,6 +2,17 @@ import Joi, { ValidationError } from "joi";
 import { Request, Response, NextFunction } from "express";
 import Product from "../models/product.model";
 
+//Joi schema for get request body
+export const getProductsRequest = Joi.object()
+  .keys({
+    search: Joi.string().trim().optional(),
+    minPrice: Joi.number().min(1).optional(),
+    maxPrice: Joi.number().min(1).optional(),
+    sortOrder: Joi.string().valid("asc", "desc").optional(),
+  })
+  .options({ convert: true })
+  .unknown(false);
+
 //Joi schema for post request body
 export const newProductRequest = Joi.object()
   .keys({
@@ -101,6 +112,8 @@ export const validateRequestBody = async (
           message: "Product is inactive. Action forbidden",
         });
       }
+    } else if (req.method === "GET") {
+      await getProductsRequest.validateAsync(req.params, { abortEarly: false });
     }
     next(); //Proceed with controllers
   } catch (error) {

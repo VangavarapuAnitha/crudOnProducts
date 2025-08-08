@@ -1,4 +1,10 @@
 import Product from "../models/product.model";
+interface GetProductsType {
+  search?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  sortOrder?: "asc" | "desc" | null | undefined;
+}
 
 interface NewProductType {
   name: string;
@@ -22,12 +28,43 @@ interface DeleteType {
 }
 
 //Service for get all active product documnets
-export const getProductsService = async () => {
+export const getProductsService = async ({
+  search,
+  minPrice,
+  maxPrice,
+  sortOrder,
+}: GetProductsType) => {
+  console.log(search, minPrice, maxPrice, sortOrder);
   try {
+    // Build query object
+    const query: any = { isActive: true };
+
+    // Add search filter if provided
+    if (search) {
+      // Case-insensitive regex search on product name
+      query.name = { $regex: search, $options: "i" };
+    }
+
+    // Add price filter if both minPrice and maxPrice provided
+    if (minPrice !== undefined && maxPrice !== undefined) {
+      query.price = { $gte: minPrice, $lte: maxPrice };
+    } else if (minPrice !== undefined) {
+      query.price = { $gte: minPrice };
+    } else if (maxPrice !== undefined) {
+      query.price = { $lte: maxPrice };
+    }
+
+    // Determine sort object
+    let sort: any = {};
+    if (sortOrder === "asc") sort.price = 1;
+    else if (sortOrder === "desc") sort.price = -1;
+
     const products = await Product.find(
-      { isActive: true },
+      query,
       "_id name price category description imageUrl"
-    ).lean();
+    )
+      .sort(sort)
+      .lean();
 
     //No active product documents
     if (products.length === 0) {
@@ -46,6 +83,7 @@ export const getProductsService = async () => {
         category: finalCategory,
       };
     });
+
     //Return active products
     return {
       success: true,

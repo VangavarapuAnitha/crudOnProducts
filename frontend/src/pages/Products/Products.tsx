@@ -61,17 +61,19 @@ const Products = () => {
         />
       </div>
       {/*Price Range and Sort by price*/}
-      <div className="flex flex-col sm:flex-row w-full gap-4 items-center justify-self-center lg:max-w-xl">
+      <div className="flex flex-col sm:flex-row w-full gap-4 items-center justify-self-center lg:max-w-xl mt-2">
         {/*Price Range*/}
-        <div className="flex-1 w-full">
-          <label>Price Range</label>
+        <div className="flex-[65%] w-full">
+          <label className="block mb-1 font-medium  text-sm">Price Range</label>
           <div className="flex items-center sm:flex-row border w-full gap-4 px-4 py-1 rounded-lg border-gray-200 bg-white">
-            <RCSlider
-              min={500}
-              max={50000}
-              onAfterChange={(values) => setPrice([values[0], values[1]])}
-            />
-            <div className="flex items-center font-medium">
+            <div className="flex-1">
+              <RCSlider
+                min={500}
+                max={50000}
+                onAfterChange={(values) => setPrice([values[0], values[1]])}
+              />
+            </div>
+            <div className="flex items-center font-medium text-sm">
               <IndianRupee size={14} />
               {price[0]}
               -<IndianRupee size={14} />
@@ -80,7 +82,7 @@ const Products = () => {
           </div>
         </div>
         {/*Sory by price*/}
-        <div className="flex-1 w-full">
+        <div className="flex-[35%] w-full">
           <DropDown
             options={sortOptions}
             label="Sort by price"

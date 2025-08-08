@@ -8,6 +8,13 @@ import React, {
 import type { ProductType, CategoryType } from "../types/products.types";
 import axiosInstance from "../shared/utils/axiosInstance";
 
+interface FetchProductsProps {
+  search?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  sortOrder?: "asc" | "desc" | null;
+}
+
 interface DeleteModalProps {
   id: string | null;
   name: string | null;
@@ -32,7 +39,7 @@ export interface ProductsContextProps {
   deleteModal: DeleteModalProps;
   categoryList: CategoryType[];
   setDeleteModal: (val: DeleteModalProps) => void;
-  fetchProducts: () => void;
+  fetchProducts: (val: FetchProductsProps) => void;
   setFinalProducts: (val: ProductType[]) => void;
   setViewProduct: (val: ProductType | null) => void;
   setOpenProductForm: (val: OpenProductFormProps) => void;
@@ -66,11 +73,27 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
   });
 
   //Fetch all products data
-  const fetchProducts = async () => {
+  const fetchProducts = async ({
+    search,
+    minPrice,
+    maxPrice,
+    sortOrder,
+  }: FetchProductsProps) => {
+    console.log("calling api");
+    console.log(search, minPrice, maxPrice, sortOrder);
     setLoading(true);
     setLoadingError(null);
     try {
-      const res = await axiosInstance.get("/products");
+      let params: Record<string, any> = {};
+
+      if (search) params.search = search;
+      if (minPrice) params.minPrice = minPrice;
+      if (maxPrice) params.maxPrice = maxPrice;
+      if (sortOrder) params.sortOrder = sortOrder;
+
+      console.log(params);
+
+      const res = await axiosInstance.get("/products", { params });
       console.log(res);
       const data: ProductType[] = res.data.products;
       setFetchedProducts(data);
@@ -96,7 +119,7 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
 
   //Fetch all products on mount
   useEffect(() => {
-    fetchProducts();
+    fetchProducts({});
     fetchCategories();
   }, []);
 

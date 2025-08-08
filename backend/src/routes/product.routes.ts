@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-router.get("/", getAllProductsController);
+router.get("/", validateRequestBody, getAllProductsController);
 router.post("/", validateRequestBody, newProductController);
 router.delete("/:id", validateRequestBody, deleteProductController);
 router.put("/", validateRequestBody, updateProductController);
