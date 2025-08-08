@@ -19,6 +19,7 @@ const ProductForm = () => {
     handleSubmit,
     handleSelect,
     handleReset,
+    isSubmitting,
     categoryList,
     control,
     errors,
@@ -54,12 +55,16 @@ const ProductForm = () => {
       <div className="flex gap-2 justify-self-end">
         <Button
           label="Reset"
-          className="bg-orange-400 hover:bg-orange-300"
+          className={cn(
+            `bg-orange-400 hover:bg-orange-300`,
+            isSubmitting && "pointer-events-none"
+          )}
           onClick={handleReset}
         />
         <Button
           onClick={handleSubmit(onSubmit)}
           label={initialData ? "Update" : "Submit"}
+          className={cn(isSubmitting && "pointer-events-none")}
         />
       </div>
     );

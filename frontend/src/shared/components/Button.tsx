@@ -6,7 +6,12 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ label, className, onClick }) => {
+const Button: React.FC<ButtonProps> = ({
+  label,
+  className,
+
+  onClick,
+}) => {
   return (
     <button
       onClick={onClick}

@@ -165,7 +165,7 @@ export const deleteProductService = async ({ id }: DeleteType) => {
 
     return {
       success: true,
-      message: "Inactivated product",
+      message: "Deleted product",
     };
   } catch (error) {
     console.log("Error in deleting(inactivate) product:", error);

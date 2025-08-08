@@ -17,12 +17,13 @@ export interface FormProps {
 export const useProductForm = () => {
   const { setOpenProductForm, fetchProducts, openProductForm, categoryList } =
     useProductContext();
+
   const initialData = openProductForm.initialData;
   const {
     handleSubmit,
     reset,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormProps>({
     defaultValues: {
       name: "",
@@ -125,6 +126,7 @@ export const useProductForm = () => {
     onSubmit,
     handleSelect,
     handleReset,
+    isSubmitting,
     categoryList,
     control,
     initialData,
