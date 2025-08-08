@@ -7,7 +7,10 @@ export const newProductRequest = Joi.object()
   .keys({
     name: Joi.string().trim().required(),
     price: Joi.number().required(),
-    category: Joi.string().trim().required(),
+    category: Joi.array()
+      .items(Joi.string().trim().required())
+      .min(1)
+      .required(),
     imageUrl: Joi.string().trim().required(),
     description: Joi.string().trim().required(),
   })
@@ -19,7 +22,7 @@ export const updateProductRequest = Joi.object()
     id: Joi.string().trim().required(),
     name: Joi.string().trim(),
     price: Joi.number(),
-    category: Joi.string().trim(),
+    category: Joi.array().items(Joi.string().trim().required()).min(1),
     imageUrl: Joi.string().trim(),
     description: Joi.string().trim(),
   })

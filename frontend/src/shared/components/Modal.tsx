@@ -70,7 +70,7 @@ const Modal: React.FC<ModalProps> = ({
         {footerElement && (
           <div
             className={cn(
-              "text-end border-t pt-3 px-4 pb-2.5 border-gray-200",
+              "text-end border-t pt-3 px-4 pb-2.5 mt-2 border-gray-200",
               classes?.modalFooter
             )}
           >

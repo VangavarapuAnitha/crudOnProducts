@@ -4,7 +4,7 @@ interface NewProductType {
   name: string;
   price: number;
   description: string;
-  category: string;
+  category: string[];
   imageUrl: string;
 }
 
@@ -13,7 +13,7 @@ interface UpdateProductType {
   name?: string;
   price?: number;
   description?: string;
-  category?: string;
+  category?: string[];
   imageUrl?: string;
 }
 
@@ -27,7 +27,7 @@ export const getProductsService = async () => {
     const products = await Product.find(
       { isActive: true },
       "_id name price category description imageUrl"
-    );
+    ).lean();
 
     //No active product documents
     if (products.length === 0) {
@@ -39,11 +39,17 @@ export const getProductsService = async () => {
         },
       };
     }
-
+    const finalProducts = products.map((product) => {
+      const finalCategory: string[] = product.category.split(",");
+      return {
+        ...product,
+        category: finalCategory,
+      };
+    });
     //Return active products
     return {
       success: true,
-      products: products,
+      products: finalProducts,
     };
   } catch (error) {
     console.log("Error in fetching all products:", error);
@@ -66,12 +72,13 @@ export const newProductService = async ({
   category,
   imageUrl,
 }: NewProductType) => {
+  const finalCategory: string = category.join(`,`);
   try {
     const newProduct = new Product({
       name,
       price,
       description,
-      category,
+      category: finalCategory,
       imageUrl,
     });
     await newProduct.save();
@@ -120,7 +127,7 @@ export const updateProductService = async ({
     if (description !== undefined) updateFields.description = description;
     if (price !== undefined) updateFields.price = price;
     if (imageUrl !== undefined) updateFields.imageUrl = imageUrl;
-    if (category !== undefined) updateFields.category = category;
+    if (category !== undefined) updateFields.category = category.join(",");
 
     await Product.findByIdAndUpdate(id, { $set: updateFields });
 

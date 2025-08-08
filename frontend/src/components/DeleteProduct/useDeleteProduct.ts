@@ -9,7 +9,7 @@ export const useDeleteProduct = (id: string, onClose: () => void) => {
   //Delete product
   const handleDelete = async () => {
     try {
-      const res = await axiosInstance.delete(`/${id}`);
+      const res = await axiosInstance.delete(`/products/${id}`);
       toast.success(res.data.message || "Deleted successfully");
       onClose();
       fetchProducts();

@@ -5,7 +5,7 @@ import React, {
   useState,
   type ReactNode,
 } from "react";
-import type { ProductType } from "../types/products.types";
+import type { ProductType, CategoryType } from "../types/products.types";
 import axiosInstance from "../shared/utils/axiosInstance";
 
 interface DeleteModalProps {
@@ -30,6 +30,7 @@ export interface ProductsContextProps {
   loading: boolean;
   loadingError: string | null;
   deleteModal: DeleteModalProps;
+  categoryList: CategoryType[];
   setDeleteModal: (val: DeleteModalProps) => void;
   fetchProducts: () => void;
   setFinalProducts: (val: ProductType[]) => void;
@@ -55,6 +56,8 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     show: false,
     initialData: null,
   });
+  const [categoryList, setCategoryList] = useState<CategoryType[]>([]);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingError, setLoadingError] = useState<string | null>(null);
   const [deleteModal, setDeleteModal] = useState<DeleteModalProps>({
@@ -67,7 +70,7 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     setLoading(true);
     setLoadingError(null);
     try {
-      const res = await axiosInstance.get("/");
+      const res = await axiosInstance.get("/products");
       console.log(res);
       const data: ProductType[] = res.data.products;
       setFetchedProducts(data);
@@ -80,9 +83,21 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const result = await axiosInstance.get("/categories");
+      const data: CategoryType[] = result.data.categories;
+      setCategoryList(data);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+      setCategoryList([]);
+    }
+  };
+
   //Fetch all products on mount
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   //Context values
@@ -94,6 +109,7 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     loading,
     loadingError,
     deleteModal,
+    categoryList,
     setDeleteModal,
     fetchProducts,
     setFinalProducts,

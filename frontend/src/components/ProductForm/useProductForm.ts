@@ -1,21 +1,21 @@
 import { useForm } from "react-hook-form";
 import { useProductContext } from "../../context/ProductsProvider";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import axiosInstance from "../../shared/utils/axiosInstance";
 import { isEqual } from "lodash";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-interface FormProps {
+export interface FormProps {
   name: string;
   price: number;
-  category: string;
+  category: string[];
   description: string;
   imageUrl: string;
 }
 
 export const useProductForm = () => {
-  const { setOpenProductForm, fetchProducts, openProductForm } =
+  const { setOpenProductForm, fetchProducts, openProductForm, categoryList } =
     useProductContext();
   const initialData = openProductForm.initialData;
   const {
@@ -26,15 +26,15 @@ export const useProductForm = () => {
   } = useForm<FormProps>({
     defaultValues: {
       name: "",
-      category: "",
+      category: [],
       price: 0,
       description: "",
       imageUrl: "",
     },
   });
 
-  //Set default form values
-  useEffect(() => {
+  //Reset form
+  const handleReset = useCallback(() => {
     if (initialData) {
       reset({
         name: initialData.name,
@@ -46,14 +46,20 @@ export const useProductForm = () => {
     } else {
       reset({
         name: "",
-        category: "",
+        category: [],
         price: 0,
         description: "",
         imageUrl: "",
       });
     }
-  }, [initialData]);
+  }, [initialData, reset]);
 
+  //Set default form values
+  useEffect(() => {
+    handleReset();
+  }, [initialData, reset]);
+
+  //Submit data
   const onSubmit = async (data: FormProps) => {
     try {
       if (initialData) {
@@ -79,12 +85,12 @@ export const useProductForm = () => {
           };
           console.log(payload);
           //Submit updated data
-          const res = await axiosInstance.put("/", payload);
+          const res = await axiosInstance.put("/products", payload);
           toast.success(res.data.message || "Updated succefully!");
         }
       } else {
         //Submit new product
-        await axiosInstance.post("/", data);
+        await axiosInstance.post("/products", data);
         toast.success("New product added!");
       }
       setOpenProductForm({
@@ -105,10 +111,21 @@ export const useProductForm = () => {
     }
   };
 
+  const handleSelect = useCallback((selectedValues: string[], id: string) => {
+    if (selectedValues.includes(id)) {
+      return selectedValues.filter((selectedId) => id !== selectedId);
+    } else {
+      return [...selectedValues, id];
+    }
+  }, []);
+
   return {
     setOpenProductForm,
     handleSubmit,
     onSubmit,
+    handleSelect,
+    handleReset,
+    categoryList,
     control,
     initialData,
     errors,

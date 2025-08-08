@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db";
 import products from "./routes/product.routes";
-
+import categories from "./routes/category.routes";
 //Load all .env variables into process.env
 dotenv.config();
 
@@ -14,7 +14,8 @@ app.use(cors());
 const port = process.env.PORT || 5000;
 
 //Routes
-app.use("/products", products);
+app.use("/api/products", products);
+app.use("/api/categories", categories);
 
 //Connect to db then start the server
 const startServer = async () => {
