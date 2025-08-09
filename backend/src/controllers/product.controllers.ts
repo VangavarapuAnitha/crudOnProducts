@@ -100,6 +100,6 @@ export const deleteProductController = async (req: Request, res: Response) => {
 
   //Success return
   return res.status(200).json({
-    message: "Inactivated product",
+    message: result.message,
   });
 };
