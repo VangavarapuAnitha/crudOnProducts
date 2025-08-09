@@ -79,19 +79,11 @@ export const getProductsService = async ({
         },
       };
     }
-    const finalProducts = products.map((product) => {
-      const finalCategory: string[] = product.category.split(",");
-      return {
-        ...product,
-        category: finalCategory,
-      };
-    });
 
-    console.log(finalProducts);
     //Return active products
     return {
       success: true,
-      products: finalProducts,
+      products: products,
     };
   } catch (error) {
     console.log("Error in fetching all products:", error);
@@ -115,13 +107,12 @@ export const newProductService = async ({
   imageUrl,
   productUrl,
 }: NewProductType) => {
-  const finalCategory: string = category.join(`,`);
   try {
     const newProduct = new Product({
       name,
       price,
       description,
-      category: finalCategory,
+      category,
       imageUrl,
       productUrl,
     });
@@ -173,7 +164,7 @@ export const updateProductService = async ({
     if (price !== undefined) updateFields.price = price;
     if (imageUrl !== undefined) updateFields.imageUrl = imageUrl;
     if (productUrl !== undefined) updateFields.productUrl = productUrl;
-    if (category !== undefined) updateFields.category = category.join(",");
+    if (category !== undefined) updateFields.category = category;
 
     await Product.findByIdAndUpdate(id, { $set: updateFields });
 

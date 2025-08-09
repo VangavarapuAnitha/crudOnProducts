@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface ProductType extends Document {
   name: string;
   price: number;
-  category: string;
+  category: string[];
   description: string;
   imageUrl: string;
   productUrl: string;
@@ -16,7 +16,7 @@ const ProductSchema: Schema<ProductType> = new Schema(
   {
     name: { type: String, required: true, unique: true },
     price: { type: Number, required: true },
-    category: { type: String, required: true },
+    category: { type: [String], required: true },
     description: { type: String, required: true },
     imageUrl: { type: String, required: true },
     productUrl: {

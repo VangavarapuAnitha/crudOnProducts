@@ -23,7 +23,7 @@ function App() {
           <aside
             className={
               `bg-white border-r border-gray-200 px-4 pt-4
-               fixed top-16 left-0 z-60 w-60 h-[calc(100vh-64px)]
+               fixed top-16 left-0 z-45 w-60 h-[calc(100vh-64px)]
                transform transition-transform duration-300 ease-in-out
                md:static md:translate-x-0` +
               (isMenuOpen ? " translate-x-0" : " -translate-x-full")
