@@ -12,6 +12,7 @@ interface NewProductType {
   description: string;
   category: string[];
   imageUrl: string;
+  productUrl: string;
 }
 
 interface UpdateProductType {
@@ -21,6 +22,7 @@ interface UpdateProductType {
   description?: string;
   category?: string[];
   imageUrl?: string;
+  productUrl: string;
 }
 
 interface DeleteType {
@@ -61,13 +63,14 @@ export const getProductsService = async ({
 
     const products = await Product.find(
       query,
-      "_id name price category description imageUrl"
+      "_id name price category description imageUrl productUrl"
     )
       .sort(sort)
       .lean();
 
     //No active product documents
     if (products.length === 0) {
+      console.log("no products found");
       return {
         success: false,
         error: {
@@ -84,6 +87,7 @@ export const getProductsService = async ({
       };
     });
 
+    console.log(finalProducts);
     //Return active products
     return {
       success: true,
@@ -109,6 +113,7 @@ export const newProductService = async ({
   description,
   category,
   imageUrl,
+  productUrl,
 }: NewProductType) => {
   const finalCategory: string = category.join(`,`);
   try {
@@ -118,6 +123,7 @@ export const newProductService = async ({
       description,
       category: finalCategory,
       imageUrl,
+      productUrl,
     });
     await newProduct.save();
     return {
@@ -157,6 +163,7 @@ export const updateProductService = async ({
   price,
   imageUrl,
   category,
+  productUrl,
 }: UpdateProductType) => {
   try {
     const updateFields: any = {};
@@ -165,6 +172,7 @@ export const updateProductService = async ({
     if (description !== undefined) updateFields.description = description;
     if (price !== undefined) updateFields.price = price;
     if (imageUrl !== undefined) updateFields.imageUrl = imageUrl;
+    if (productUrl !== undefined) updateFields.productUrl = productUrl;
     if (category !== undefined) updateFields.category = category.join(",");
 
     await Product.findByIdAndUpdate(id, { $set: updateFields });

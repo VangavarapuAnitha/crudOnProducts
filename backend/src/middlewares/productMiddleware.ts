@@ -23,6 +23,7 @@ export const newProductRequest = Joi.object()
       .min(1)
       .required(),
     imageUrl: Joi.string().trim().required(),
+    productUrl: Joi.string().trim().required(),
     description: Joi.string().trim().required(),
   })
   .unknown(false);
@@ -35,9 +36,10 @@ export const updateProductRequest = Joi.object()
     price: Joi.number(),
     category: Joi.array().items(Joi.string().trim().required()).min(1),
     imageUrl: Joi.string().trim(),
+    productUrl: Joi.string().trim(),
     description: Joi.string().trim(),
   })
-  .or("name", "price", "category", "imageUrl", "description")
+  .or("name", "price", "category", "imageUrl", "description", "productUrl")
   .unknown(false);
 
 //Joi schema for delete params

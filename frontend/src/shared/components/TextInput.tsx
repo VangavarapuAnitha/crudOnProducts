@@ -6,6 +6,7 @@ interface ClassNames {
   input?: string;
   label?: string;
   error?: string;
+  wrapper?: string;
 }
 
 interface TextInputProps {
@@ -30,7 +31,7 @@ const TextInput: React.FC<TextInputProps> = ({
   onChange,
 }) => {
   return (
-    <div className="flex flex-col w-full gap-1">
+    <div className={cn("flex flex-col w-full gap-1", classes?.wrapper)}>
       {label && (
         <label className={cn("text-sm flex items-center", classes?.label)}>
           {label}

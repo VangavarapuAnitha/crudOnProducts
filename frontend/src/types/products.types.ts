@@ -5,6 +5,7 @@ export type ProductType = {
   category: string[];
   description: string;
   imageUrl: string;
+  productUrl: string;
 };
 
 export type CategoryType = {

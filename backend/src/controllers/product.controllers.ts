@@ -35,13 +35,14 @@ export const getAllProductsController = async (req: Request, res: Response) => {
 
 //Controller for add new product
 export const newProductController = async (req: Request, res: Response) => {
-  const { name, price, description, category, imageUrl } = req.body;
+  const { name, price, description, category, imageUrl, productUrl } = req.body;
   const result = await newProductService({
     name,
     price,
     description,
     category,
     imageUrl,
+    productUrl,
   });
 
   //Failure return
@@ -59,7 +60,8 @@ export const newProductController = async (req: Request, res: Response) => {
 
 //Controller for update existed product
 export const updateProductController = async (req: Request, res: Response) => {
-  const { id, name, category, description, price, imageUrl } = req.body;
+  const { id, name, category, description, price, imageUrl, productUrl } =
+    req.body;
   const result = await updateProductService({
     id,
     name,
@@ -67,6 +69,7 @@ export const updateProductController = async (req: Request, res: Response) => {
     price,
     imageUrl,
     category,
+    productUrl,
   });
 
   //Failure return

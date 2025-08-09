@@ -6,6 +6,7 @@ export interface ProductType extends Document {
   category: string;
   description: string;
   imageUrl: string;
+  productUrl: string;
   isActive: boolean;
   createdAt?: Date;
   updatedAt?: Date;
@@ -18,6 +19,10 @@ const ProductSchema: Schema<ProductType> = new Schema(
     category: { type: String, required: true },
     description: { type: String, required: true },
     imageUrl: { type: String, required: true },
+    productUrl: {
+      type: String,
+      required: true,
+    },
     isActive: { type: Boolean, default: true },
   },
   { timestamps: true }

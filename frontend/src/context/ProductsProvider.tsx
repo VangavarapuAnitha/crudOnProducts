@@ -109,6 +109,8 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     } catch (error) {
       console.log("Failed to fetch products:", error);
       setLoadingError("Failed to load products");
+      setFetchedProducts([]);
+      setFinalProducts([]);
     } finally {
       setLoading(false);
     }

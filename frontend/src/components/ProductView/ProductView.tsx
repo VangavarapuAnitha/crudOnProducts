@@ -15,11 +15,17 @@ const ProductView = () => {
     >
       <div>
         {checkValidImageURL(viewProduct?.imageUrl!) ? (
-          <img
-            src={viewProduct?.imageUrl}
-            alt={viewProduct?.name}
-            className=" w-full h-64 sm:h-72 md:h-80 object-contain p-4"
-          />
+          <a
+            href={viewProduct?.productUrl!}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={viewProduct?.imageUrl}
+              alt={viewProduct?.name}
+              className=" w-full h-64 sm:h-72 md:h-80 object-contain p-4 cursor-pointer"
+            />
+          </a>
         ) : (
           <div>{viewProduct?.name}</div>
         )}

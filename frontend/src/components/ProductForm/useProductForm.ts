@@ -12,6 +12,7 @@ export interface FormProps {
   category: string[];
   description: string;
   imageUrl: string;
+  productUrl: string;
 }
 
 export const useProductForm = () => {
@@ -38,6 +39,7 @@ export const useProductForm = () => {
       price: 0,
       description: "",
       imageUrl: "",
+      productUrl: "",
     },
   });
 
@@ -50,6 +52,7 @@ export const useProductForm = () => {
         price: initialData.price,
         description: initialData.description,
         imageUrl: initialData.imageUrl,
+        productUrl: initialData.productUrl,
       });
     } else {
       reset({
@@ -58,6 +61,7 @@ export const useProductForm = () => {
         price: 0,
         description: "",
         imageUrl: "",
+        productUrl: "",
       });
     }
   }, [initialData, reset]);

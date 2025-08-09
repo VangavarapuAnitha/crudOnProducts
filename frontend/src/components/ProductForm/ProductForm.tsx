@@ -147,6 +147,28 @@ const ProductForm = () => {
           )}
         />
         <Controller
+          name="productUrl"
+          control={control}
+          rules={{
+            required: "Provide product url",
+            validate: {
+              checkURL: (value) =>
+                /^https?:\/\//i.test(value) || "Invalid product url",
+            },
+          }}
+          render={({ field }) => (
+            <TextInput
+              name={field.name}
+              onChange={field.onChange}
+              label="Product URL"
+              placeholder="Product URL"
+              value={field.value}
+              error={errors.productUrl?.message}
+              required={true}
+            />
+          )}
+        />
+        <Controller
           name="category"
           control={control}
           rules={{
