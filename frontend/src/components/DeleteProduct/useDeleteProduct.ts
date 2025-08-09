@@ -12,7 +12,7 @@ export const useDeleteProduct = (id: string, onClose: () => void) => {
       const res = await axiosInstance.delete(`/products/${id}`);
       toast.success(res.data.message || "Deleted successfully");
       onClose();
-      fetchProducts();
+      fetchProducts({});
     } catch (error) {
       console.log("Error in deleting product:", error);
       if (axios.isAxiosError(error)) {
