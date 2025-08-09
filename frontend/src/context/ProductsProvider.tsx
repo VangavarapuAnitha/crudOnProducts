@@ -13,6 +13,7 @@ interface FetchProductsProps {
   minPrice?: number;
   maxPrice?: number;
   sortOrder?: "asc" | "desc" | null;
+  categories?: string[];
 }
 
 interface DeleteModalProps {
@@ -41,6 +42,8 @@ export interface ProductsContextProps {
   search: string;
   sortOrder: "asc" | "desc" | null;
   price: [number, number];
+  selectedCategories: string[];
+  setSelectedCategories: (val: string[]) => void;
   setPrice: (val: [number, number]) => void;
   setSortOrder: (val: "asc" | "desc" | null) => void;
   setSearch: (val: string) => void;
@@ -79,6 +82,7 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     id: null,
     name: null,
   });
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   //Fetch all products data
   const fetchProducts = async ({
@@ -86,9 +90,8 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     minPrice,
     maxPrice,
     sortOrder,
+    categories,
   }: FetchProductsProps) => {
-    console.log("calling api");
-    console.log(search, minPrice, maxPrice, sortOrder);
     setLoading(true);
     setLoadingError(null);
     try {
@@ -98,11 +101,11 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
       if (minPrice) params.minPrice = minPrice;
       if (maxPrice) params.maxPrice = maxPrice;
       if (sortOrder) params.sortOrder = sortOrder;
-
-      console.log(params);
+      if (categories && categories.length > 0)
+        params.categories = categories.join(",");
 
       const res = await axiosInstance.get("/products", { params });
-      console.log(res);
+
       const data: ProductType[] = res.data.products;
       setFetchedProducts(data);
       setFinalProducts(data);
@@ -146,6 +149,8 @@ const ProductProvider: React.FC<ProductsProviderProp> = ({ children }) => {
     search,
     price,
     sortOrder,
+    selectedCategories,
+    setSelectedCategories,
     setSortOrder,
     setPrice,
     setSearch,

@@ -5,6 +5,7 @@ import Product from "../models/product.model";
 //Joi schema for get request body
 export const getProductsRequest = Joi.object()
   .keys({
+    categories: Joi.string().trim().optional(),
     search: Joi.string().trim().optional(),
     minPrice: Joi.number().min(1).optional(),
     maxPrice: Joi.number().min(1).optional(),

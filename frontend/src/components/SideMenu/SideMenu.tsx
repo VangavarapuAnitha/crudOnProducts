@@ -1,6 +1,7 @@
 import { RCSlider, DropDown } from "../../shared/components";
 import { IndianRupee } from "lucide-react";
 import { useSideMenu } from "./useSideMenu";
+import { SelectCategories } from "../SelectCategories";
 
 const sortOptions = [
   { label: "None", value: "" },
@@ -48,6 +49,8 @@ const SideMenu = () => {
             value={sortOrder ?? ""}
           />
         </div>
+        {/*Choose category*/}
+        <SelectCategories />
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ interface GetProductsType {
   minPrice?: number;
   maxPrice?: number;
   sortOrder?: "asc" | "desc" | null | undefined;
+  categories?: string | undefined;
 }
 
 interface NewProductType {
@@ -35,8 +36,8 @@ export const getProductsService = async ({
   minPrice,
   maxPrice,
   sortOrder,
+  categories,
 }: GetProductsType) => {
-  console.log(search, minPrice, maxPrice, sortOrder);
   try {
     // Build query object
     const query: any = { isActive: true };
@@ -54,6 +55,12 @@ export const getProductsService = async ({
       query.price = { $gte: minPrice };
     } else if (maxPrice !== undefined) {
       query.price = { $lte: maxPrice };
+    }
+
+    const finalCategories = categories?.split(",");
+    // Category filter
+    if (finalCategories && finalCategories.length > 0) {
+      query.category = { $in: finalCategories };
     }
 
     // Determine sort object

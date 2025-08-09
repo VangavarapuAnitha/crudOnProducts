@@ -22,6 +22,7 @@ export const useProductForm = () => {
     setPrice,
     setSortOrder,
     setSearch,
+    setSelectedCategories,
     openProductForm,
     categoryList,
   } = useProductContext();
@@ -112,6 +113,7 @@ export const useProductForm = () => {
       setSearch("");
       setSortOrder(null);
       setPrice([500, 50000]);
+      setSelectedCategories([]);
       await fetchProducts({});
     } catch (error: any) {
       console.log("Error in update/submit data:", error);

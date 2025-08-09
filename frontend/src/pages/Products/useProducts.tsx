@@ -10,6 +10,7 @@ export const useProducts = () => {
     search,
     price,
     sortOrder,
+    selectedCategories,
     setSortOrder,
     setPrice,
     setSearch,
@@ -19,13 +20,15 @@ export const useProducts = () => {
   } = useProductContext();
 
   useEffect(() => {
+    console.log(selectedCategories);
     fetchProducts({
       search,
       minPrice: price[0],
       maxPrice: price[1],
       sortOrder,
+      categories: selectedCategories,
     });
-  }, [search, price, sortOrder]);
+  }, [search, price, sortOrder, selectedCategories]);
 
   return {
     finalProducts,

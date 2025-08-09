@@ -8,7 +8,8 @@ import {
 
 //Controller for get all products
 export const getAllProductsController = async (req: Request, res: Response) => {
-  const { search, minPrice, maxPrice, sortOrder } = req.query;
+  const { search, minPrice, maxPrice, sortOrder, categories } = req.query;
+
   // Convert minPrice and maxPrice to numbers since query params are strings
   const minPriceNum = minPrice ? Number(minPrice) : undefined;
   const maxPriceNum = maxPrice ? Number(maxPrice) : undefined;
@@ -18,6 +19,7 @@ export const getAllProductsController = async (req: Request, res: Response) => {
     minPrice: minPriceNum,
     maxPrice: maxPriceNum,
     sortOrder: sortOrder as "asc" | "desc" | null | undefined,
+    categories: categories as string | undefined,
   });
 
   //Failure return
